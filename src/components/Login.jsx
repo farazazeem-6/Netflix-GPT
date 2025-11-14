@@ -9,18 +9,22 @@ import {
   twitterImg,
 } from "../utils/Image";
 import { useRef, useState } from "react";
-import { validationFunc } from "../utils/Validations";
+import { validateSignIn, validateSignUp } from "../utils/Validations";
 
 const Login = () => {
+  //use state hooks
   const [isSignIn, setIsSignIn] = useState(false);
   const [isError, setIsError] = useState(null);
 
+// use ref hooks 
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
 
+  // toggle beween signup and sign in form function 
   function toggle() {
     setIsSignIn(!isSignIn);
+    setIsError(null);
   }
   // Clear error for specific field when user types
   function handleInputChange(field) {
@@ -29,20 +33,27 @@ const Login = () => {
     }
   }
 
+  // login function which check validations also 
   function handleButtonClick() {
-    const validationResult = validationFunc(
-      email.current.value,
-      password.current.value,
-      name.current.value
-    );
+    const validationResult = isSignIn
+      ? validateSignIn(email.current.value, password.current.value)
+      : validateSignUp(
+          email.current.value,
+          password.current.value,
+          name.current.value
+        );
     setIsError(validationResult);
   }
+
+
   return (
     <div
       style={{ background: `url(${HeroImg})` }}
       className="w-full flex flex-col items-center justify-center"
     >
+      {/* //a dim black background wrapper div  */}
       <div className="fixed z-10 bg-black/50 w-full inset-0"></div>
+      {/* called header component here */}
       <div className="absolute top-0 left-40 w-[200px] z-20">
         <Header />
       </div>
@@ -55,6 +66,8 @@ const Login = () => {
           <h1 className="text-[32px] font-bold text-white text-left">
             {isSignIn ? "Sign In" : "Sign Up"}
           </h1>
+
+          {/* name input for sign up form  */}
           {!isSignIn && (
             <input
               ref={name}

@@ -1,4 +1,22 @@
-export const validationFunc = (email, password, name) => {
+export const validateSignIn = (email, password) => {
+  const isValidEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(
+    email.trim()
+  );
+  const isValidPassword = /^.{4,60}$/.test(password.trim());
+
+  if (!isValidEmail) {
+    return { field: "email", message: "Please enter a valid email." };
+  }
+  if (!isValidPassword) {
+    return {
+      field: "password",
+      message: "Your password must contain between 4 and 60 characters.",
+    };
+  }
+  return null;
+};
+
+export const validateSignUp = (email, password, name) => {
   const isValidEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(
     email.trim()
   );
