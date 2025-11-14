@@ -10,30 +10,38 @@ import {
 } from "../utils/Image";
 import { useRef, useState } from "react";
 import { validateSignIn, validateSignUp } from "../utils/Validations";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 const Login = () => {
   //use state hooks
   const [isSignIn, setIsSignIn] = useState(false);
   const [isError, setIsError] = useState(null);
+  const [isApiLoading, setIsApiLoading] = useState(false);
+  const [isResponseError, setIsResponseError] = useState(null);
 
-// use ref hooks 
+  // use ref hooks
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
 
-  // toggle beween signup and sign in form function 
+  // toggle beween signup and sign in form function
   function toggle() {
     setIsSignIn(!isSignIn);
     setIsError(null);
   }
   // Clear error for specific field when user types
   function handleInputChange(field) {
-    if (isError && isError.field === field) {
+    if ((isError && isError.field === field) || isResponseError) {
       setIsError(null);
+      setIsResponseError(null);
     }
   }
 
-  // login function which check validations also 
+  // login function which check validations also
   function handleButtonClick() {
     const validationResult = isSignIn
       ? validateSignIn(email.current.value, password.current.value)
@@ -43,8 +51,50 @@ const Login = () => {
           name.current.value
         );
     setIsError(validationResult);
+    if (validationResult) return;
+    setIsApiLoading(true);
+    if (isSignIn) {
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setIsResponseError(errorMessage);
+          console.log("errorCode:", errorCode, "errorMessage:", errorMessage);
+        })
+        .finally(() => {
+          setIsApiLoading(false);
+        });
+    } else {
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setIsResponseError(errorMessage);
+          console.log("errorCode:", errorCode, "errorMessage:", errorMessage);
+        })
+        .finally(() => {
+          setIsApiLoading(false);
+        });
+    }
   }
-
 
   return (
     <div
@@ -120,10 +170,23 @@ const Login = () => {
 
           <button
             onClick={handleButtonClick}
-            className="text-white cursor-pointer w-full bg-red-600 py-2 px-12 font-bold rounded text-[16px] hover:bg-red-700 "
+            disabled={isApiLoading}
+            className="text-white cursor-pointer w-full bg-red-600 py-2 px-12 font-bold rounded text-[16px] hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-red-600"
           >
-            {isSignIn ? "Sign In" : "Sign Up"}
+            {isSignIn
+              ? isApiLoading
+                ? "Signing In..."
+                : "Sign In"
+              : isApiLoading
+              ? "Signing Up..."
+              : "Sign Up"}
           </button>
+          {isResponseError && (
+            <p className="text-red-500 text-[12px] flex items-center">
+              <i className="ri-close-circle-line px-1 text-xl"></i>
+              {isResponseError}
+            </p>
+          )}
         </form>
         <p className="text-[#bbb] text-center mt-4">OR</p>
         <div className="grid grid-cols-4 gap-2">
