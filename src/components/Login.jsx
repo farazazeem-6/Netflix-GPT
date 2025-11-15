@@ -15,6 +15,12 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import {
+  signInWithFacebook,
+  signInWithGithub,
+  signInWithGoogle,
+  signInWithTwitter,
+} from "../utils/socialAuth";
 
 const Login = () => {
   //use state hooks
@@ -96,6 +102,34 @@ const Login = () => {
     }
   }
 
+  // Social Login Handler (Reusable for all providers)
+  async function handleSocialLogin(provider) {
+    setIsApiLoading(true);
+    setIsResponseError(null);
+
+    let result;
+    switch (provider) {
+      case "google":
+        result = await signInWithGoogle();
+        break;
+      case "facebook":
+        result = await signInWithFacebook();
+        break;
+      case "github":
+        result = await signInWithGithub();
+        break;
+      case "twitter":
+        result = await signInWithTwitter();
+        break;
+      default:
+        return;
+    }
+    if (result.success) {
+      console.log(result);
+    } else {
+      console.log(result.error);
+    }
+  }
   return (
     <div
       style={{ background: `url(${HeroImg})` }}
@@ -191,18 +225,21 @@ const Login = () => {
         <p className="text-[#bbb] text-center mt-4">OR</p>
         <div className="grid grid-cols-4 gap-2">
           <div
+            onClick={() => handleSocialLogin("google")}
             className="bg-black/70 py-2 px-6 rounded-xl cursor-pointer my-2 hover:bg-black/90 hover:-translate-y-1 transition duration-500"
             title="Continue with Google"
           >
             <img className="w-[30px]" src={googleImg} alt="" />
           </div>
           <div
+            onClick={() => handleSocialLogin("facebook")}
             className="bg-black/70 py-2 px-6 rounded-xl cursor-pointer my-2 hover:bg-black/90 hover:-translate-y-1 transition duration-500"
             title="Continue with Facebook"
           >
             <img className="w-[30px]" src={facebookImg} alt="" />
           </div>
           <div
+            onClick={() => handleSocialLogin("github")}
             className="bg-black/70 py-2 px-6 rounded-xl cursor-pointer my-2 hover:bg-black/90 hover:-translate-y-1 transition duration-500"
             title="Continue with Github"
           >
@@ -212,6 +249,7 @@ const Login = () => {
             <img className="w-[30px]" src={playGamesImg} alt="" />
           </div> */}
           <div
+            onClick={() => handleSocialLogin("twitter")}
             className="bg-black/70 py-2 px-6 rounded-xl cursor-pointer my-2 hover:bg-black/90 hover:-translate-y-1 transition duration-500"
             title="Continue with Twitter"
           >
