@@ -14,18 +14,12 @@ function App() {
     const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
         const { uid, displayName, email } = user;
-        dispatch(addUser({ uid, firstName: displayName, email }));
-        // navigate("/browse");
-        if (location.pathname === "/") {
-          navigate("/browse");
-        }
+        dispatch(addUser({ uid: uid, firstName: displayName, email: email }));
+        navigate("/browse");
         console.log("login success");
       } else {
         dispatch(removeUser());
-        // navigate("/");
-        if (location.pathname !== "/") {
-          navigate("/");
-        }
+        navigate("/");
         console.log("login failed");
       }
     });
