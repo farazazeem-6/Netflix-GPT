@@ -1,25 +1,38 @@
-import React, { Fragment } from "react";
-import "../src/App.css";
-import { createBrowserRouter } from "react-router";
-import Login from "./components/Login";
-import { RouterProvider } from "react-router-dom";
-import Browse from "./components/Browse";
+import { useEffect } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./utils/firebase";
+import { addUser, removeUser } from "./store/userSlice";
 
 function App() {
-  const appRouter = createBrowserRouter([
-    {
-      path: "/",
-      element: <Login />,
-    },
-    {
-      path: "/browse",
-      element: <Browse />,
-    },
-  ]);
-  return (
-    <Fragment>
-      <RouterProvider router={appRouter} />
-    </Fragment>
-  );
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, displayName, email } = user;
+        dispatch(addUser({ uid, firstName: displayName, email }));
+        // navigate("/browse");
+        if (location.pathname === "/") {
+          navigate("/browse");
+        }
+        console.log("login success");
+      } else {
+        dispatch(removeUser());
+        // navigate("/");
+        if (location.pathname !== "/") {
+          navigate("/");
+        }
+        console.log("login failed");
+      }
+    });
+    return unsub;
+  }, [dispatch, navigate, location.pathname]);
+
+  return <Outlet />;
 }
+
 export default App;
