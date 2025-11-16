@@ -13,6 +13,7 @@ import { validateSignIn, validateSignUp } from "../utils/Validations";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import {
@@ -21,6 +22,9 @@ import {
   signInWithGoogle,
   signInWithTwitter,
 } from "../utils/socialAuth";
+import { addUser } from "../store/userSlice";
+import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   //use state hooks
@@ -33,6 +37,9 @@ const Login = () => {
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // toggle beween signup and sign in form function
   function toggle() {
@@ -88,6 +95,19 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
+          updateProfile(auth.currentUser, {
+            displayName: name.current.value,
+          })
+            .then(() => {
+              const { uid, displayName, email } = auth.currentUser;
+              dispatch(
+                addUser({ uid: uid, firstName: displayName, email: email })
+              );
+            })
+            .catch((error) => {
+              setIsResponseError(error.message);
+            });
+
           console.log(user);
         })
         .catch((error) => {
@@ -126,13 +146,6 @@ const Login = () => {
     }
 
     if (result.success) {
-      // Dispatch to Redux
-      // dispatch(addUser({
-      //   uid: result.user.uid,
-      //   email: result.user.email,
-      //   displayName: result.user.displayName,
-      //   photoURL: result.user.photoURL,
-      // }));
       console.log(`${provider} login successful:`, result.user);
     } else {
       setIsResponseError(result.error);
