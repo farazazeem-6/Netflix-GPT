@@ -124,11 +124,21 @@ const Login = () => {
       default:
         return;
     }
+
     if (result.success) {
-      console.log(result);
+      // Dispatch to Redux
+      // dispatch(addUser({
+      //   uid: result.user.uid,
+      //   email: result.user.email,
+      //   displayName: result.user.displayName,
+      //   photoURL: result.user.photoURL,
+      // }));
+      console.log(`${provider} login successful:`, result.user);
     } else {
-      console.log(result.error);
+      setIsResponseError(result.error);
     }
+
+    setIsApiLoading(false);
   }
   return (
     <div
