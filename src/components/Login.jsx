@@ -12,6 +12,7 @@ import { useRef, useState } from "react";
 import { validateSignIn, validateSignUp } from "../utils/Validations";
 import {
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
@@ -75,13 +76,13 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
+          // console.log(user);
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           setIsResponseError(errorMessage);
-          console.log("errorCode:", errorCode, "errorMessage:", errorMessage);
+          // console.log("errorCode:", errorCode, "errorMessage:", errorMessage);
         })
         .finally(() => {
           setIsApiLoading(false);
@@ -108,13 +109,13 @@ const Login = () => {
               setIsResponseError(error.message);
             });
 
-          console.log(user);
+          // console.log(user);
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           setIsResponseError(errorMessage);
-          console.log("errorCode:", errorCode, "errorMessage:", errorMessage);
+          // console.log("errorCode:", errorCode, "errorMessage:", errorMessage);
         })
         .finally(() => {
           setIsApiLoading(false);
@@ -146,12 +147,31 @@ const Login = () => {
     }
 
     if (result.success) {
-      console.log(`${provider} login successful:`, result.user);
+      // console.log(`${provider} login successful:`, result.user);
     } else {
       setIsResponseError(result.error);
     }
 
     setIsApiLoading(false);
+  }
+  // reset or forget password api:
+  const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+  function resetPassword() {
+    if (!email.current.value || !emailRegex.test(email.current.value)) {
+      setIsResponseError("Empty or Invalid email");
+    } else {
+      sendPasswordResetEmail(auth, email.current.value)
+        .then(() => {
+          setIsResponseError(
+            "Reset Password link have been sent to your email."
+          );
+        })
+        .catch((error) => {
+          // console.error("Error:", error);
+          setIsResponseError(error);
+        });
+    }
   }
   return (
     <div
@@ -220,7 +240,10 @@ const Login = () => {
           )}
 
           {isSignIn && (
-            <p className="cursor-pointer underline text-white font-bold text-right text-[13px] hover:text-[#c7b4b4]">
+            <p
+              onClick={resetPassword}
+              className="cursor-pointer underline text-white font-bold text-right text-[13px] hover:text-[#c7b4b4]"
+            >
               Forgot password?
             </p>
           )}

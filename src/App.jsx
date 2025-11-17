@@ -16,11 +16,11 @@ function App() {
         const { uid, displayName, email } = user;
         dispatch(addUser({ uid: uid, firstName: displayName, email: email }));
         navigate("/browse");
-        console.log("login success");
+        // console.log("login success");
       } else {
         dispatch(removeUser());
         navigate("/");
-        console.log("login failed");
+        // console.log("login failed");
       }
     });
     return unsub;
