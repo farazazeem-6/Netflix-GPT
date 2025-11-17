@@ -1,4 +1,3 @@
-import React from "react";
 import Header from "./Header";
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
@@ -9,17 +8,20 @@ const Browse = () => {
   function handleSignOut() {
     signOut(auth)
       .then(() => {
-        navigate("/");
+        // navigate("/");
       })
       .catch((error) => {
-        navigate("/error");
+        // navigate("/error");
       });
   }
   return (
-    <div className="bg-black/50 w-full">
+    <div className="bg-linear-to-b from-black">
       <Header />
       <div className="flex justify-end mx-8">
-        <button onClick={handleSignOut} className="bg-red-600 text-white rounded my-4 py-2 px-3 cursor-pointer">
+        <button
+          onClick={handleSignOut}
+          className="bg-red-700 text-white rounded my-4 py-1 px-2 cursor-pointer text-[14px] hover:bg-red-800"
+        >
           Sign Out
         </button>
       </div>
