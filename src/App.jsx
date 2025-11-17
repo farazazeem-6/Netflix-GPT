@@ -24,7 +24,7 @@ function App() {
       }
     });
     return unsub;
-  }, [dispatch, navigate, location.pathname]);
+  }, [dispatch, navigate]);
 
   return <Outlet />;
 }
