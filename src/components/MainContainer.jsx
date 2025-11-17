@@ -4,15 +4,22 @@ import VideoBackground from "./VideoBackground";
 
 function MainContainer() {
   const movies = useSelector((state) => state.movies?.nowPlayingMovies);
-  if (!movies) return;
+
+  if (!movies || movies.length === 0) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center bg-black">
+        <p className="text-white text-xl">Loading...</p>
+      </div>
+    );
+  }
+
   const mainMovie = movies[0];
-  // console.log(mainMovie);
   const { original_title, overview, id } = mainMovie;
 
   return (
-    <div>
-      <VideoTitle title={original_title} overview={overview} />
+    <div className="relative h-screen w-full">
       <VideoBackground movieId={id} />
+      <VideoTitle title={original_title} overview={overview} />
     </div>
   );
 }

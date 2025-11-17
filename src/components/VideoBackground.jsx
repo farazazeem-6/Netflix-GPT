@@ -1,35 +1,22 @@
-import { useEffect, useState } from "react";
-import { API_OPTIONS } from "../utils/constants";
+import { useSelector } from "react-redux";
+import useFetchMovieTrailer from "../hooks/useFetchMovieTrailer";
 
 function VideoBackground({ movieId }) {
-  const [trailerKey, setTrailerKey] = useState(null);
-  async function movieTrailer() {
-    const data = await fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}/videos?`,
-      API_OPTIONS
-    );
-    const json = await data.json();
-    // console.log(json);
-    const filterData = json.results.filter((video) => video.type === "Trailer");
-    const trailer = filterData.length ? filterData[0] : json.results[0];
-    // console.log(trailer.key);
-    setTrailerKey(trailer.key);
-  }
-  useEffect(() => {
-    movieTrailer();
-  }, [movieId]);
+  const trailerKey = useSelector((state) => state.movies?.trailerVideo);
+  useFetchMovieTrailer(movieId);
+
+  if (!trailerKey) return null;
+
   return (
-    <div>
-      {trailerKey && (
-        <iframe
-          width="560"
-          height="315"
-          src={`https://www.youtube.com/embed/${trailerKey}?si=aK9YkjVLyHYtpuQw`}
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-        ></iframe>
-      )}
+    <div className="w-full h-screen overflow-hidden">
+      <iframe
+        className="w-full h-full scale-150"
+        src={`https://www.youtube.com/embed/${trailerKey.key}?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&rel=0&loop=1&playlist=${trailerKey.key}&iv_load_policy=3&disablekb=1&fs=0`}
+        title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerPolicy="strict-origin-when-cross-origin"
+        frameBorder="0"
+      ></iframe>
     </div>
   );
 }
