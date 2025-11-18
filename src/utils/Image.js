@@ -15,3 +15,5 @@ export const appleImg = apple;
 export const playGamesImg = playGames;
 export const twitterImg = twitter;
 export const microsoftImg = microsoft;
+
+export const IMG_CDN_URL = "https://image.tmdb.org/t/p/w500";
