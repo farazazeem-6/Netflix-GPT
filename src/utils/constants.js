@@ -20,3 +20,6 @@ export const SUPPORTED_LANGUAGES = [
     name: "Hindi",
   },
 ];
+
+export const OPENAI_KEY =
+  "I have save my open ai key in a notepad file in local system";
