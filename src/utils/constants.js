@@ -2,8 +2,7 @@ export const API_OPTIONS = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlYjMxZWNkOTFjYWE1NjNlOWY4NDgyOTQ2MDk4MzZmOCIsIm5iZiI6MTc1OTgxNTc0OS40NzgwMDAyLCJzdWIiOiI2OGU0YTg0NTFmZmMxNDRhM2QyNWJiZDUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.DdVFGOGop9SI0zUATLKzokb5u_-x_Oc8YQEfTO0w3Fk",
+    Authorization: "Bearer " + import.meta.env.REACT_APP_TMDB_KEY,
   },
 };
 export const SUPPORTED_LANGUAGES = [
@@ -21,5 +20,4 @@ export const SUPPORTED_LANGUAGES = [
   },
 ];
 
-export const OPENAI_KEY =
-  "I have save my open ai key in a notepad file in local system";
+// export const OPENAI_KEY = import.meta.env.REACT_APP_OPENAI_KEY;
