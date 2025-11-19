@@ -8,7 +8,7 @@ function MainContainer() {
   if (!movies || movies.length === 0) {
     return (
       <div className="w-full h-screen flex items-center justify-center bg-black">
-        <p className="text-white text-xl">Loading...</p>
+        <p className="text-white text-base sm:text-lg md:text-xl">Loading...</p>
       </div>
     );
   }

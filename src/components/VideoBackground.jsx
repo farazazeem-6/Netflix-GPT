@@ -10,7 +10,7 @@ function VideoBackground({ movieId }) {
   return (
     <div className="w-full h-screen overflow-hidden">
       <iframe
-        className="w-full h-full scale-150"
+        className="w-full h-full scale-125 sm:scale-150"
         src={`https://www.youtube.com/embed/${trailerKey.key}?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&rel=0&loop=1&playlist=${trailerKey.key}&iv_load_policy=3&disablekb=1&fs=0`}
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
