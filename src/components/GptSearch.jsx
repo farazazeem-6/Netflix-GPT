@@ -5,9 +5,9 @@ import { HeroImg } from "../utils/Image";
 
 const GptSearch = () => {
   return (
-    <div>
-      <div className="absolute -z-10">
-        <img src={HeroImg} alt="" />
+    <div className="min-h-screen">
+      <div className="fixed -z-10 w-full h-full">
+        <img className="w-full h-full object-cover" src={HeroImg} alt="" />
       </div>
       <GptSearchBar />
       <GptMovieSuggestions />

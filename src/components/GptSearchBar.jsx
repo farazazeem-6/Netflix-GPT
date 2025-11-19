@@ -5,29 +5,31 @@ import { useSelector } from "react-redux";
 
 const GptSearchBar = () => {
   const languageKey = useSelector((store) => store.language.lang);
-  const inputRef=useRef(null)
-//   console.log(languageKey);
+  const inputRef = useRef(null);
+  //   console.log(languageKey);
 
-
-//   async function handleGptSearch() {
-//     console.log(inputRef.current.value);
-//     const gptResults=await openai.chat.completions.create({
-//         messages:[{}],
-//         model:'gpt-3.5-turbo'
-//     })
-//     console.log(gptResults.choices);
-//   }
+  //   async function handleGptSearch() {
+  //     console.log(inputRef.current.value);
+  //     const gptResults=await openai.chat.completions.create({
+  //         messages:[{}],
+  //         model:'gpt-3.5-turbo'
+  //     })
+  //     console.log(gptResults.choices);
+  //   }
 
   return (
-    <div className="flex justify-center pt-[10%]">
-      <form className="bg-black w-1/2 grid grid-cols-12 rounded-2xl" onSubmit={(e)=>e.preventDefault()}>
+    <div className="w-full px-4 absolute left-0 flex justify-center top-[10%] sm:top-20 md:top-24 lg:top-32">
+      <form
+        className="bg-black w-full sm:w-3/4 md:w-2/3 lg:w-1/2 grid grid-cols-12 gap-2 rounded-2xl py-6 px-4"
+        onSubmit={(e) => e.preventDefault()}
+      >
         <input
-        ref={inputRef}
+          ref={inputRef}
           type="text"
           placeholder={lang[languageKey].placerHolderText}
-          className="py-2 px-4 m-4 rounded-lg col-span-9 text-black bg-white"
+          className="col-span-12 sm:col-span-9 py-2 px-4 rounded-lg text-black bg-white"
         />
-        <button className="bg-red-700 text-white text-sm font-semibold rounded-lg py-2 px-4 col-span-3 m-4 cursor-pointer hover:bg-red-800">
+        <button className="col-span-12 sm:col-span-3 bg-red-700 text-white text-sm font-semibold rounded-lg py-2 px-4 cursor-pointer hover:bg-red-800">
           {lang[languageKey].searchText}
         </button>
       </form>

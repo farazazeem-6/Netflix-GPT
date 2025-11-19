@@ -1,3 +1,4 @@
+// Browse.jsx - Responsive
 import Header from "./Header";
 import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
@@ -18,7 +19,7 @@ const Browse = () => {
   // console.log(gpt.isGpt);
 
   return (
-    <div className=" min-h-screen overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden">
       <Header />
       {gpt.isGpt ? (
         <GptSearch />

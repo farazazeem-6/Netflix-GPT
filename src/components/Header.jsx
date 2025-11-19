@@ -1,3 +1,5 @@
+// Header.jsx - Only responsive classes added, no other changes
+
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
@@ -29,14 +31,14 @@ const Header = () => {
   }
 
   return (
-    <div className="absolute top-0 left-0 w-full px-8 py-2 bg-linear-to-b from-black to-transparent z-50 flex justify-between items-center">
-      <img className="w-44" src={Netflix_Logo} alt="Netflix_Logo" />
+    <div className="absolute top-0 left-0 w-full px-4 sm:px-6 md:px-8 py-2 bg-linear-to-b from-black to-transparent z-50 flex justify-between items-center">
+      <img className="w-28 sm:w-36 md:w-44" src={Netflix_Logo} alt="Netflix_Logo" />
 
       {user && (
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
           {showGptSearch && (
             <select
-              className="bg-gray-800 text-white rounded-md py-2"
+              className="bg-gray-800 text-white rounded-md py-1.5 sm:py-2 text-xs sm:text-sm px-1.5 sm:px-2"
               onChange={handleLanguageChange}
             >
               {SUPPORTED_LANGUAGES.map((language) => (
@@ -49,13 +51,13 @@ const Header = () => {
 
           <button
             onClick={handleGptSearchComp}
-            className="text-white rounded-lg bg-pink-700 text-sm font-semibold px-4 py-2 cursor-pointer hover:bg-pink-800"
+            className="text-white rounded-lg bg-pink-700 text-xs sm:text-sm font-semibold px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 cursor-pointer hover:bg-pink-800 whitespace-nowrap"
           >
             {showGptSearch ? "Home Page" : "Gpt Search"}
           </button>
           <button
             onClick={handleLogout}
-            className="bg-red-600 text-white px-4 py-2 rounded text-sm font-semibold hover:bg-red-700 transition cursor-pointer"
+            className="bg-red-600 text-white px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded text-xs sm:text-sm font-semibold hover:bg-red-700 transition cursor-pointer whitespace-nowrap"
           >
             Sign Out
           </button>
