@@ -1,5 +1,3 @@
-// Header.jsx - Only responsive classes added, no other changes
-
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
@@ -16,10 +14,10 @@ const Header = () => {
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
-        // console.log("Logout successful");
+        console.log("Logout successful");
       })
       .catch((error) => {
-        // console.error("Logout error:", error);
+        console.error("Logout error:", error);
       });
   };
 
