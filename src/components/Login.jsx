@@ -280,7 +280,7 @@ const Login = () => {
             title="Continue with Google"
           >
             <img
-              className="w-[26px] sm:w-[28px] md:w-[30px]"
+              className="w-[26px] sm:w-7 md:w-[30px]"
               src={googleImg}
               alt=""
             />
@@ -291,7 +291,7 @@ const Login = () => {
             title="Continue with Facebook"
           >
             <img
-              className="w-[26px] sm:w-[28px] md:w-[30px]"
+              className="w-[26px] sm:w-7 md:w-[30px]"
               src={facebookImg}
               alt=""
             />
@@ -302,7 +302,7 @@ const Login = () => {
             title="Continue with Github"
           >
             <img
-              className="w-[26px] sm:w-[28px] md:w-[30px]"
+              className="w-[26px] sm:w-7 md:w-[30px]"
               src={githubImg}
               alt=""
             />
@@ -313,7 +313,7 @@ const Login = () => {
             title="Continue with Twitter"
           >
             <img
-              className="w-[26px] sm:w-[28px] md:w-[30px]"
+              className="w-[26px] sm:w-7 md:w-[30px]"
               src={twitterImg}
               alt=""
             />
