@@ -4,8 +4,6 @@ import {
   githubImg,
   googleImg,
   HeroImg,
-  microsoftImg,
-  playGamesImg,
   twitterImg,
 } from "../utils/Image";
 import { useRef, useState } from "react";
@@ -39,7 +37,6 @@ const Login = () => {
   const password = useRef(null);
   const name = useRef(null);
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   // toggle beween signup and sign in form function
