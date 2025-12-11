@@ -1,4 +1,3 @@
-// Browse.jsx - Responsive
 import Header from "./Header";
 import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
@@ -16,7 +15,6 @@ const Browse = () => {
   useUpComingMovies();
 
   const gpt = useSelector((store) => store.gpt);
-  // console.log(gpt.isGpt);
 
   return (
     <div className="min-h-screen overflow-x-hidden">

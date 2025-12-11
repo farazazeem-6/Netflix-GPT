@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./utils/firebase";
@@ -8,7 +8,6 @@ import { addUser, removeUser } from "./store/userSlice";
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
@@ -20,7 +19,6 @@ function App() {
       } else {
         dispatch(removeUser());
         navigate("/");
-        // console.log("login failed");
       }
     });
     return unsub;
