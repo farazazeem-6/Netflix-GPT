@@ -1,7 +1,6 @@
 @import "tailwindcss";
 * {
   font-family: "Stack Sans Text", sans-serif;
-  /* border: 1px solid red; */
 }
 .hide-scrollbar::-webkit-scrollbar {
   display: none;

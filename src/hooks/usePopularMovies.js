@@ -11,12 +11,11 @@ function usePopularMovies() {
       API_OPTIONS
     );
     let json = await data.json();
-    // console.log(json.results);
     dispatch(addPopularMovies(json.results));
   };
   useEffect(() => {
     getPopularMovies();
-  }, []);
+  });
 }
 
 export default usePopularMovies;
