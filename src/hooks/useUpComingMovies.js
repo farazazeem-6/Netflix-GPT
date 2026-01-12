@@ -11,12 +11,11 @@ function useUpComingMovies() {
       API_OPTIONS
     );
     let json = await data.json();
-    // console.log(json.results);
     dispatch(addUpComingMovies(json.results));
   };
   useEffect(() => {
     getUpComingMovies();
-  }, []);
+  });
 }
 
 export default useUpComingMovies;

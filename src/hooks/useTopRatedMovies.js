@@ -11,12 +11,11 @@ function useTopRatedMovies() {
       API_OPTIONS
     );
     let json = await data.json();
-    // console.log(json.results);
     dispatch(addTopRatedMovies(json.results));
   };
   useEffect(() => {
     getTopRatedMovies();
-  }, []);
+  });
 }
 
 export default useTopRatedMovies;

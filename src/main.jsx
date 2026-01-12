@@ -11,7 +11,7 @@ import App from "./App";
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <App />, // ← App wraps all routes
+    element: <App />,
     children: [
       { path: "/", element: <Login /> },
       { path: "/browse", element: <Browse /> },
