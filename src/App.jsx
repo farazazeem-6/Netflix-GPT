@@ -15,7 +15,6 @@ function App() {
         const { uid, displayName, email } = user;
         dispatch(addUser({ uid: uid, firstName: displayName, email: email }));
         navigate("/browse");
-        // console.log("login success");
       } else {
         dispatch(removeUser());
         navigate("/");

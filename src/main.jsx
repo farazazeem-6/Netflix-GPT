@@ -7,7 +7,6 @@ import Login from "./components/Login";
 import Browse from "./components/Browse";
 import App from "./App";
 
-// Define all routes here
 const appRouter = createBrowserRouter([
   {
     path: "/",
