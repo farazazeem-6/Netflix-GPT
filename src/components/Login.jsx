@@ -22,7 +22,6 @@ import {
   signInWithTwitter,
 } from "../utils/socialAuth";
 import { addUser } from "../store/userSlice";
-import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
