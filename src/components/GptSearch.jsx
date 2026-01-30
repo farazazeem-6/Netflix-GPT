@@ -1,6 +1,4 @@
-import React from "react";
 import GptSearchBar from "./GptSearchBar";
-import GptMovieSuggestions from "./GptMovieSuggestions";
 import { HeroImg } from "../utils/Image";
 
 const GptSearch = () => {
@@ -10,7 +8,7 @@ const GptSearch = () => {
         <img className="w-full h-full object-cover" src={HeroImg} alt="" />
       </div>
       <GptSearchBar />
-      <GptMovieSuggestions />
+      {/* <GptMovieSuggestions /> */}
     </div>
   );
 };
