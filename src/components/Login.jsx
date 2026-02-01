@@ -7,7 +7,7 @@ import {
   twitterImg,
 } from "../utils/Image";
 import { useRef, useState } from "react";
-import { validateSignIn, validateSignUp } from "../utils/Validations";
+import { emailRegex, validateSignIn, validateSignUp } from "../utils/Validations";
 import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
@@ -105,13 +105,11 @@ const Login = () => {
               setIsResponseError(error.message);
             });
 
-          // console.log(user);
         })
         .catch((error) => {
           // const errorCode = error.code;
           const errorMessage = error.message;
           setIsResponseError(errorMessage);
-          // console.log("errorCode:", errorCode, "errorMessage:", errorMessage);
         })
         .finally(() => {
           setIsApiLoading(false);
@@ -151,7 +149,6 @@ const Login = () => {
     setIsApiLoading(false);
   }
   // reset or forget password api:
-  const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
   function resetPassword() {
     if (!email.current.value || !emailRegex.test(email.current.value)) {
